@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { CommunityProvider } from './context/CommunityContext';
+import TabMenu from './components/common/TabMenu';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -34,6 +35,7 @@ function App() {
             <Route path="/community/write" element={<WritePostPage />} />
             <Route path="/community/:id" element={<PostDetailPage />} />
           </Routes>
+          <TabMenu />
         </Router>
       </CommunityProvider>
     </AppProvider>

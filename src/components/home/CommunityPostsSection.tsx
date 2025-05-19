@@ -1,37 +1,14 @@
 import React from 'react';
 import Card, { CardHeader, CardContent } from '../common/Card';
 import { useNavigate } from 'react-router-dom';
-
-// Mock community posts
-const communityPosts = [
-  {
-    id: 'p1',
-    title: '분산투자의 중요성에 대해 생각해보았습니다',
-    author: '주식사랑',
-    likes: 128,
-    comments: 24,
-    time: '2시간 전'
-  },
-  {
-    id: 'p2',
-    title: '처음 주식을 시작하시는 분들이 흔히 하는 실수 TOP 5',
-    author: '투자의신',
-    likes: 87,
-    comments: 15,
-    time: '4시간 전'
-  },
-  {
-    id: 'p3',
-    title: '오늘 발표된 경제지표 분석 및 시장 전망',
-    author: '차트마스터',
-    likes: 56,
-    comments: 8,
-    time: '6시간 전'
-  }
-];
+import { useCommunity } from '../../context/CommunityContext';
 
 const CommunityPostsSection: React.FC = () => {
   const navigate = useNavigate();
+  const { posts } = useCommunity();
+
+  // 좋아요 순 인기글 상위 3개
+  const popularPosts = [...posts].sort((a, b) => b.likes - a.likes).slice(0, 3);
 
   return (
     <section className="mb-8">
@@ -41,7 +18,7 @@ const CommunityPostsSection: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {communityPosts.map((post) => (
+            {popularPosts.map((post) => (
               <div 
                 key={post.id}
                 className="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
@@ -53,9 +30,9 @@ const CommunityPostsSection: React.FC = () => {
                   <span className="mx-1">•</span>
                   <span>좋아요 {post.likes}</span>
                   <span className="mx-1">•</span>
-                  <span>댓글 {post.comments}</span>
+                  <span>댓글 {post.comments.length}</span>
                   <span className="mx-1">•</span>
-                  <span>{post.time}</span>
+                  <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
               </div>
             ))}
