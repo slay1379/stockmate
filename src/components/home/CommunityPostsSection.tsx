@@ -12,19 +12,19 @@ const CommunityPostsSection: React.FC = () => {
 
   return (
     <section className="mb-8">
-      <Card>
+      <Card className="bg-blue-50 border-blue-200 rounded-xl shadow-md">
         <CardHeader>
-          <h2 className="text-xl font-bold text-gray-800">커뮤니티 인기글</h2>
+          <h2 className="text-xl font-bold text-blue-700">커뮤니티 인기글</h2>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {popularPosts.map((post) => (
               <div 
                 key={post.id}
-                className="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+                className="p-3 bg-white border border-blue-100 rounded-xl hover:bg-blue-50 transition-colors cursor-pointer shadow"
                 onClick={() => navigate(`/community/${post.id}`)}
               >
-                <h3 className="font-medium text-gray-900">{post.title}</h3>
+                <h3 className="font-medium text-blue-800">{post.title}</h3>
                 <div className="flex items-center mt-2 text-sm text-gray-500">
                   <span>{post.author}</span>
                   <span className="mx-1">•</span>
