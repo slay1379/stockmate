@@ -5,6 +5,7 @@ interface CommunityContextType {
   posts: Post[];
   createPost: (input: CreatePostInput) => void;
   createComment: (input: CreateCommentInput) => void;
+  likePost: (postId: string) => void;
 }
 
 const CommunityContext = createContext<CommunityContextType | null>(null);
@@ -56,8 +57,14 @@ export function CommunityProvider({ children }: { children: ReactNode }) {
     }));
   };
 
+  const likePost = (postId: string) => {
+    setPosts(posts.map(post =>
+      post.id === postId ? { ...post, likes: post.likes + 1 } : post
+    ));
+  };
+
   return (
-    <CommunityContext.Provider value={{ posts, createPost, createComment }}>
+    <CommunityContext.Provider value={{ posts, createPost, createComment, likePost }}>
       {children}
     </CommunityContext.Provider>
   );

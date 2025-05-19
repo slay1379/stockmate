@@ -6,7 +6,7 @@ import { useCommunity } from '../context/CommunityContext';
 export default function PostDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { posts, createComment } = useCommunity();
+  const { posts, createComment, likePost } = useCommunity();
   const [newComment, setNewComment] = useState('');
 
   const post = posts.find(p => p.id === id);
@@ -32,9 +32,15 @@ export default function PostDetailPage() {
           <span>{post.author}</span>
           <span>{new Date(post.createdAt).toLocaleDateString()}</span>
         </div>
-        <div className="prose max-w-none text-gray-800">
+        <div className="prose max-w-none text-gray-800 mb-4">
           {post.content}
         </div>
+        <button
+          className="px-4 py-2 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition mb-2"
+          onClick={() => likePost(post.id)}
+        >
+          👍 좋아요 {post.likes}
+        </button>
       </div>
 
       <div className="border-t pt-8">
